@@ -628,3 +628,30 @@ public:
     }
 };
 ```
+
+### Divisor Game
+
+####  Problem - https://leetcode.com/problems/divisor-game/
+
+```
+class Solution {
+public:
+    int dp[1005][2];
+    bool winner(int n, int curr){
+        if(dp[n][curr] != -1)   return dp[n][curr];
+        if(n <= 1)  return 0;
+        if(n == 2 && curr)  return 1;
+        if(n == 2 && !curr)  return 0;
+        for(int i = 1; i < n; i++){
+            if(n%i == 0){
+                return dp[n][curr] = winner(n-i, !curr);
+            }
+        }
+        return dp[n][curr] = 0;
+    }
+    bool divisorGame(int n) {
+        memset(dp, -1, sizeof(dp));
+        return winner(n, 1);
+    }
+};
+```
